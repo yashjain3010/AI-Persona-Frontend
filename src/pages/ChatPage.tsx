@@ -126,16 +126,20 @@ export default function ChatPage({ onBack }: ChatPageProps) {
   const loadChatHistory = async (sessionId: string) => {
     setIsLoading(true);
     try {
-      let userId = "current_user";
+      let userId = import.meta.env.VITE_DEFAULT_USER_ID;
       try {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
-        userId = user.id || "current_user";
+        userId = user.id || import.meta.env.VITE_DEFAULT_USER_ID;
       } catch (error) {
         console.error("Error getting user ID from localStorage:", error);
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/personas/chats?user=${userId}&persona=${persona.id}&session_id=${sessionId}`
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/api/personas/chats?user=${userId}&persona=${
+          persona.id
+        }&session_id=${sessionId}`
       );
 
       if (response.ok) {
@@ -221,10 +225,10 @@ export default function ChatPage({ onBack }: ChatPageProps) {
     }
 
     // Send message to backend for MongoDB storage
-    let userId = "current_user"; // Default fallback
+    let userId = import.meta.env.VITE_DEFAULT_USER_ID; // Default fallback
     try {
       const user = JSON.parse(localStorage.getItem("user") || "{}");
-      userId = user.id || "current_user";
+      userId = user.id || import.meta.env.VITE_DEFAULT_USER_ID;
     } catch (error) {
       console.error("Error getting user ID from localStorage:", error);
     }
@@ -249,17 +253,20 @@ export default function ChatPage({ onBack }: ChatPageProps) {
         );
 
         // Store both user message and AI response in MongoDB
-        const storePromise = fetch("http://localhost:3000/api/personas/chats", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            user: userId,
-            persona: personaId,
-            session_id: sessionId,
-            user_message: String(trimmed),
-            ai_response: webhookResponse,
-          }),
-        })
+        const storePromise = fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/personas/chats`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user: userId,
+              persona: personaId,
+              session_id: sessionId,
+              user_message: String(trimmed),
+              ai_response: webhookResponse,
+            }),
+          }
+        )
           .then((res) => {
             if (!res.ok) {
               return res.text().then((text) => {
@@ -318,17 +325,20 @@ export default function ChatPage({ onBack }: ChatPageProps) {
       const aiResponse = "This is a sample response from your AI Persona.";
 
       // Store both user message and AI response in MongoDB
-      const storePromise = fetch("http://localhost:3000/api/personas/chats", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user: userId,
-          persona: personaId,
-          session_id: sessionId,
-          user_message: String(trimmed),
-          ai_response: aiResponse,
-        }),
-      })
+      const storePromise = fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/personas/chats`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user: userId,
+            persona: personaId,
+            session_id: sessionId,
+            user_message: String(trimmed),
+            ai_response: aiResponse,
+          }),
+        }
+      )
         .then((res) => {
           if (!res.ok) {
             return res.text().then((text) => {

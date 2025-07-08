@@ -62,7 +62,9 @@ const ChatHistoryPage: React.FC = () => {
       return;
     }
 
-    const fetchUrl = `http://localhost:3000/api/personas/chats?user=${userId}&persona=all`;
+    const fetchUrl = `${
+      import.meta.env.VITE_API_BASE_URL
+    }/api/personas/chats?user=${userId}&persona=all`;
     console.log("Fetch URL:", fetchUrl);
 
     // Fetch all chats for the user

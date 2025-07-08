@@ -1,6 +1,5 @@
 // Webhook service for integrating with n8n persona workflows
-const WEBHOOK_URL =
-  "https://n8n-excollo.azurewebsites.net/webhook/e17df12a-2bfc-4270-8756-0c20442a4b9f";
+const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL;
 
 import { getSessionId } from "../utils/session";
 

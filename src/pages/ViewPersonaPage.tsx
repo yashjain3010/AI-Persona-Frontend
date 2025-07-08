@@ -57,7 +57,7 @@ const mockExpertise = [
   "Timeline setting and project gating process management",
   "Operational efficiency enhancement and scalability planning",
   "Data-driven feedback loops and iterative process improvement",
-  "Cross-functional collaboration between finance, product, and operations teams"
+  "Cross-functional collaboration between finance, product, and operations teams",
 ];
 const mockTraits = [
   "Detail-oriented with an emphasis on financial viability and transparent reporting",
@@ -157,7 +157,7 @@ const ViewPersonaPage: React.FC<ViewPersonaPageProps> = ({
       try {
         setLoading(true);
         const response = await fetch(
-          `http://localhost:3000/api/personas/${id || "1"}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/personas/${id || "1"}`
         );
 
         if (!response.ok) {
