@@ -69,14 +69,14 @@ const theme = createTheme({
 });
 
 // Auth guard for protected routes
-const RequireAuth: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const location = useLocation();
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-  return <>{children}</>;
-};
+// const RequireAuth: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+//   const location = useLocation();
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     return <Navigate to="/login" state={{ from: location }} replace />;
+//   }
+//   return <>{children}</>;
+// };
 
 // Wrapper to use hooks in routed components
 const DiscoveryWithNav: React.FC = () => {
@@ -108,17 +108,17 @@ function App() {
           <Route
             path="/"
             element={
-              <RequireAuth>
+              // <RequireAuth>
                 <DiscoveryWithNav />
-              </RequireAuth>
+              //</RequireAuth>
             }
           />
           <Route
             path="/chat/:id"
             element={
-              <RequireAuth>
+             // <RequireAuth>
                 <ChatPageWithNav />
-              </RequireAuth>
+             // </RequireAuth>
             }
           />
           <Route path="/chat-history" element={<ChatHistoryPage />} />
