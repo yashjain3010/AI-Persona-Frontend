@@ -3,8 +3,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
-  useLocation,
   useNavigate,
   useParams,
 } from "react-router-dom";
@@ -109,16 +107,16 @@ function App() {
             path="/"
             element={
               // <RequireAuth>
-                <DiscoveryWithNav />
+              <DiscoveryWithNav />
               //</RequireAuth>
             }
           />
           <Route
             path="/chat/:id"
             element={
-             // <RequireAuth>
-                <ChatPageWithNav />
-             // </RequireAuth>
+              // <RequireAuth>
+              <ChatPageWithNav />
+              // </RequireAuth>
             }
           />
           <Route path="/chat-history" element={<ChatHistoryPage />} />
